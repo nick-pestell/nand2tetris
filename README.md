@@ -1,6 +1,6 @@
 # Nand2Tetris
 
-### My Nand2Tetris journey
+*My Nand2Tetris journey*
 
 https://www.nand2tetris.org/
 
