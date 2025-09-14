@@ -1,38 +1,46 @@
 (begin)
-    @pressed
-    M=0
     @KBD
-    D=!M
-    D=D+1
-    @pressed
+    D=M
+    @black
+    D;JGT
+
+    // clear
+    @0
+    D=A
+    @screenColour
     M=D
-    @32767
-    D=!A
-    @pressed
-    D=D&M // 1000000000000000 if pressed, 0000000000000000 if not pressed
-    D=D-1 // 0111111111111111 if pressed, 1111111111111111 if not pressed
-    M=!D //  1000000000000000 if pressed, 0000000000000000 if not pressed
+    @fillScreen
+    0;JEQ
+
+    // black
+    (black)
+    @0
+    D=A-1
+    @screenColour
+    M=D
+    @fillScreen
+    0;JEQ
+
+    (fillScreen)
     @SCREEN
     D=A
     @pixel
     M=D
-        (startScreen)
-        // this bit fills the screen
-        @pressed
+        (fill)
+        @screenColour
         D=M
         @pixel
         A=M
-        M=D // sets the value of the pixel to the value of @pressed
+        M=D
         @pixel
-        M=M+1 // moves the pixel on one
-        // this bit does working out if we're finished with the screen
+        M=M+1
         @SCREEN
         D=A
         @pixel
         D=M-D
         @8192
         D=A-D
-        @startScreen
+        @fill
         D;JGT
 @begin
 0;JEQ
