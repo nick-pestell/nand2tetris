@@ -1,7 +1,7 @@
-(begin)
+(BEGIN)
     @KBD
     D=M
-    @black
+    @BLACK
     D;JGT
 
     // clear
@@ -9,24 +9,24 @@
     D=A
     @screenColour
     M=D
-    @fillScreen
+    @FILLSCREEN
     0;JEQ
 
-    // black
-    (black)
-    @0
-    D=A-1
-    @screenColour
-    M=D
-    @fillScreen
-    0;JEQ
+        // black
+        (BLACK)
+        @0
+        D=A-1
+        @screenColour
+        M=D
+        @fillScreen
+        0;JEQ
 
-    (fillScreen)
+    (FILLSCREEN)
     @SCREEN
     D=A
     @pixel
     M=D
-        (fill)
+        (FILL)
         @screenColour
         D=M
         @pixel
@@ -40,7 +40,7 @@
         D=M-D
         @8192
         D=A-D
-        @fill
+        @FILL
         D;JGT
-@begin
+@BEGIN
 0;JEQ

@@ -2,19 +2,19 @@
 M=0
 @counter
 M=0
-(LOOP)
-@0
-D=M
-@counter
-D=D-M
-@END
-D;JEQ
-@counter
-M=M+1
-@1
-D=M
-@2
-M=D+M
+    (LOOP)
+    @0
+    D=M
+    @counter
+    D=D-M
+    @END
+    D;JEQ
+    @counter
+    M=M+1
+    @1
+    D=M
+    @2
+    M=D+M
 @LOOP
 0;JMP
 (END)
