@@ -1,0 +1,1 @@
+/home/nick/repos/nand2tetris/projects/06/assembler/target/debug/assembler: /home/nick/repos/nand2tetris/projects/06/assembler/src/code.rs /home/nick/repos/nand2tetris/projects/06/assembler/src/main.rs /home/nick/repos/nand2tetris/projects/06/assembler/src/parser.rs
