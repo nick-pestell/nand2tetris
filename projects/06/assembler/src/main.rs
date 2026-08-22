@@ -16,5 +16,10 @@ fn main() {
     let args = Args::parse();
 
     let mut my_parser = parser::Parser::new(Path::new(&args.asm_filename));
-    println!("{}", my_parser.has_more_commands());
+    while my_parser.has_more_commands() {
+        my_parser.advance();
+        let foo = my_parser.command_type().unwrap();
+        println!("{:?}", foo);
+        println!();
+    }
 }
