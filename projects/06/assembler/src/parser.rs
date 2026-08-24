@@ -21,6 +21,12 @@ impl fmt::Display for ParserError {
 
 impl std::error::Error for ParserError {}
 
+impl ParserError {
+    fn new() -> Self {
+        Self
+    }
+}
+
 #[derive(Debug)]
 #[derive(Copy)]
 #[derive(Clone)]
@@ -88,9 +94,7 @@ impl Parser {
         }
     }
 
-    // this function isn't actually really needed since
-    // advance(..) can handle the end of the iterator and
-    // responds by returning None.
+    // this function isn't actually really needed since // advance(..) can handle the end of the iterator and // responds by returning None.
     // I have included it because the API spec. in project 6
     // asks for it.
     pub fn has_more_commands(&mut self) -> bool {
@@ -108,27 +112,24 @@ impl Parser {
         });
     }
 
-    pub fn command_type(&mut self) -> Result<CommandType, Box<dyn std::error::Error + '_>> {
+    pub fn command_type(&mut self) -> Result<CommandTypeEnum, Box<dyn std::error::Error + '_>> {
         let has_more_commands = self.has_more_commands();
         match &self.command_current {
             Some(result) => match result {
                 Ok(command) => {
-                    let matches: [Option<CommandTypeEnum>; 2] = self.command_types
-                        .iter()
-                        .map(|command_type| command_type.is_match(command))
-                        .collect();
-                    if self.a_matcher.is_match(command) {
-                        Ok(CommandType::ACommand)
-                    // } else if self.c_matcher.is_match(command) {
-                    //     Ok(CommandType::CCommand)
-                    // } else if self.l_matcher.is_match(command) {
-                    //     Ok(CommandType::LCommand)
-                    } else {
-                        Err(Box::new(ParserError))
+                    let command_type: Option<CommandTypeEnum> = self.command_types
+                        .iter_mut()
+                        .filter_map(|command_type| command_type.is_match(command))
+                        .fold(None, |acc, x| {
+                            match acc {
+                                None => Some(x),
+                                Some(_) => None
+                            }
+                        });
+                    command_type.ok_or_else(|| Box::new(ParserError::new()) as Box<dyn std::error::Error>)
                     }
-                }
                 Err(e) => Err(Box::new(e)),
-            },
+                }
             None => match has_more_commands {
                 false => Err(format!("End of file reached").into()),
                 true => Err(format!("Command not read").into()),
