@@ -1,3 +1,4 @@
+M=1
  strip space at start
 strip space at end    
 keep space in middle

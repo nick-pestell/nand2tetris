@@ -18,7 +18,7 @@ fn main() {
     
     while my_parser.has_more_commands() {
         my_parser.advance();
-        println!("{:?}", my_parser.command_type().unwrap());
-        println!();
+        println!("{:?}\n", my_parser.command_type().unwrap());
+        // println!();
     }
 }
